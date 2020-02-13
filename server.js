@@ -8,22 +8,22 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const session = require('express-session');
 
-const db = knex({
-  client: 'pg',
-  connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : '1234',
-    database : 'smartbrain'
-  }
-});
 // const db = knex({
 //   client: 'pg',
 //   connection: {
-//     connectionString: process.env.DATABASE_URL,
-//     ssl : true,
+//     host : '127.0.0.1',
+//     user : 'postgres',
+//     password : '1234',
+//     database : 'smartbrain'
 //   }
 // });
+const db = knex({
+  client: 'pg',
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl : true,
+  }
+});
 
 const app = express();
 app.use(bodyParser.json());
