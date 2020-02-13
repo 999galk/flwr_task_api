@@ -29,7 +29,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(session({
   store: new (require('connect-pg-simple')(session))(),
-  secret: process.env.FOO_COOKIE_SECRET,
+  secret: (process.env.FOO_COOKIE_SECRET || 'sdftyhjik') ,
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
