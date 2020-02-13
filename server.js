@@ -44,6 +44,7 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
+	console.log('session views:', req.session.views);
 	res.json('Hey you!');
 })
 
