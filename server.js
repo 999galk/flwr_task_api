@@ -7,6 +7,7 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
 
 // const db = knex({
 //   client: 'pg',
@@ -25,10 +26,15 @@ const db = knex({
   }
 });
 
+const store = new KnexSessionStore({
+    knex: db,
+    tablename: 'sessions' // optional. Defaults to 'sessions'
+});
+
 const app = express();
 app.use(bodyParser.json());
 app.use(session({
-  store: new (require('connect-pg-simple')(session))(),
+  store: store,
   secret: (process.env.FOO_COOKIE_SECRET || 'sdftyhjik') ,
   resave: false,
   saveUninitialized: true,
