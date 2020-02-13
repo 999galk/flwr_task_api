@@ -57,10 +57,10 @@ app.get('/', (req, res) => {
 app.put('/image', image.changeEntries(db))
 app.post('/imageUrl', image.handleApiCall())
 
-app.listen(3001 , () =>{
-	console.log('app is running on port ${process.env.PORT}');
-})
-
-// app.listen(process.env.PORT || 3001 , () =>{
+// app.listen(3001 , () =>{
 // 	console.log('app is running on port ${process.env.PORT}');
 // })
+
+app.listen(process.env.PORT || 3001 , () =>{
+	console.log('app is running on port ${process.env.PORT}');
+})
