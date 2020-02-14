@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 
 //another way of calling the function from the external module - the req, res are called after the function is triggered anyways so we don't have to mention it here
 //we do need to add it in the module !! (db) => (req,res) => {actions}
-app.post('/image', image.changeEntries(db))
+app.post('/image', image.changeEntries(db));
 //app.post('/imageUrl', image.handleApiCall())
 
 // app.listen(3001 , () =>{

@@ -17,6 +17,7 @@ const handleApiCall = (url, id, sessionData) => {
 const changeEntries = (db) => (req,res) => {
 	const { input } = req.body;
 	const sessionData = req.session;
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
 	db('entries').returning('id').insert({url : input}).count('id as CNT').then(id => {
     if(id.length){
