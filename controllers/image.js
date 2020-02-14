@@ -12,16 +12,23 @@ const handleApiCall = () => (req,res) => {
 }
 
 const changeEntries = (db) => (req,res) => {
-	const { id } = req.body;
-	let found = false;
+	const { input } = req.body;
 	
-	db('users').where('id', '=', id).increment('entries', 1).returning('entries').then(entries => {
-		if(entries.length){
-			res.json(entries);
-		} else{
-			res.status(404).json('user doesnt exist');	
-		}
-	}).catch(err => res.status(400).json('Error getting entries'));
+	db('entries').returning('id').insert({url : input}).count('id as CNT').then(id => {
+    if(id.length){
+    	res.json(id);
+    }else{
+    	res.status(404).json('user doesnt exist');
+    }
+  }).catch(err => res.status(400).json(err));
+
+	// db('users').where('id', '=', id).increment('entries', 1).returning('entries').then(entries => {
+	// 	if(entries.length){
+	// 		res.json(entries);
+	// 	} else{
+	// 		res.status(404).json('user doesnt exist');	
+	// 	}
+	// }).catch(err => res.status(400).json('Error getting entries'));
 
 }
 
