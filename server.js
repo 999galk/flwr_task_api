@@ -40,13 +40,13 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
-//app.use(cors());
-let allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Headers', "*");
-  next();
-}
-app.use(allowCrossDomain);
+app.use(cors());
+// let allowCrossDomain = function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', "*");
+//   res.header('Access-Control-Allow-Headers', "*");
+//   next();
+// }
+// app.use(allowCrossDomain);
 
 app.get('/', (req, res) => {
 	console.log('session :', req.session);
