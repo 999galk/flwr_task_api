@@ -11,11 +11,11 @@ const handleApiCall = (url, id, sessionData) => {
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
-		res.json({data:data, id:id});
+		res.json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
-const changeEntries = (db) => (req,res) => {
+const changeEntries = (req,res,db) => {
 	const { input } = req.body;
 	const sessionData = req.session;
 
