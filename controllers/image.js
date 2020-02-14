@@ -11,7 +11,7 @@ const handleApiCall = (url, id, sessionData) => {
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
-		res.json(data, id);
+		res.json({data:data, id:id});
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
