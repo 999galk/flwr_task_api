@@ -40,8 +40,13 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
-app.use(cors());
-
+//app.use(cors());
+let allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', "*");
+  next();
+}
+app.use(allowCrossDomain);
 
 app.get('/', (req, res) => {
 	console.log('session :', req.session);
@@ -70,5 +75,5 @@ app.put('/image', image.changeEntries(db))
 // })
 
 app.listen(process.env.PORT || 3001 , () =>{
-	console.log('app is running on port ${process.env.PORT}');
+	console.log(`app is running on port ${process.env.PORT}`);
 })
