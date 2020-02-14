@@ -39,6 +39,5 @@ const changeEntries = (db) => (req,res) => {
 }
 
 module.exports = {
-	changeEntries : changeEntries,
-	handleApiCall : handleApiCall
+	changeEntries : changeEntries
 };
