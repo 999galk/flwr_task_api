@@ -5,6 +5,7 @@ const app = new Clarifai.App({
 });
 
 const handleApiCall = (url, id, sessionData) => {
+	console.log('url in handleApiCall', url);
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	app.models
 	.predict(Clarifai.FACE_DETECT_MODEL, url)
@@ -17,6 +18,7 @@ const handleApiCall = (url, id, sessionData) => {
 
 const changeEntries = (req,res,db) => {
 	const { input } = req.body;
+	console.log('input in changeEntries', input);
 	const sessionData = req.session;
 
 	db('entries').returning('id').insert({url : input}).count('id as CNT').then(id => {
