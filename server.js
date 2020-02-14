@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 //another way of calling the function from the external module - the req, res are called after the function is triggered anyways so we don't have to mention it here
 //we do need to add it in the module !! (db) => (req,res) => {actions}
 app.put('/image', image.changeEntries(db))
-app.post('/imageUrl', image.handleApiCall())
+//app.post('/imageUrl', image.handleApiCall())
 
 // app.listen(3001 , () =>{
 // 	console.log('app is running on port ${process.env.PORT}');
