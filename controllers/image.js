@@ -1,4 +1,3 @@
-const cors = require('cors');
 const Clarifai = require('clarifai');
 
 const clarifai_app = new Clarifai.App({
@@ -7,13 +6,13 @@ const clarifai_app = new Clarifai.App({
 
 const handleApiCall = (url, id, sessionData) => {
 	console.log('url in handleApiCall', url);
-	clarifai_app.use(cors());
 	clarifai_app.models
 	.predict(Clarifai.FACE_DETECT_MODEL, url)
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
 		console.log('data in server:', data);
+		res.set({'Access-Control-Allow-Origin' :'*', 'Access-Control-Allow-Headers':'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode'});
 		res.json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
