@@ -1,3 +1,4 @@
+const cors = require('cors');
 const Clarifai = require('clarifai');
 
 const clarifai_app = new Clarifai.App({
@@ -6,6 +7,7 @@ const clarifai_app = new Clarifai.App({
 
 const handleApiCall = (url, id, sessionData) => {
 	console.log('url in handleApiCall', url);
+	clarifai_app.use(cors());
 	clarifai_app.models
 	.predict(Clarifai.FACE_DETECT_MODEL, url)
 	.then(data => {
