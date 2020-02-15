@@ -40,15 +40,19 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
-//app.use(cors());
-let allowCrossDomain = function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Headers', "*");
-  next();
+app.use(cors());
+// let allowCrossDomain = function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   res.setHeader('Access-Control-Allow-Headers', "*");
+//   next();
+// }
+// app.use(allowCrossDomain);
+var corsOptions = {
+  origin: 'http://localhost:3000/',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-app.use(allowCrossDomain);
 
-app.get('/', (req, res) => {
+app.get('/', cors(corsOptions), (req, res) => {
 	console.log('session :', req.session);
 	res.json('Hey you!');
 })
@@ -67,7 +71,7 @@ app.get('/', (req, res) => {
 
 //another way of calling the function from the external module - the req, res are called after the function is triggered anyways so we don't have to mention it here
 //we do need to add it in the module !! (db) => (req,res) => {actions}
-app.post('/image', (req,res) => {
+app.post('/image', cors(), (req,res) => {
 	image.changeEntries(req,res,db);
 });
 //app.post('/imageUrl', image.handleApiCall())
