@@ -1,18 +1,18 @@
 const Clarifai = require('clarifai');
 
-const app = new Clarifai.App({
+const clarifai_app = new Clarifai.App({
  apiKey: '2c8dcc1c39c242d284f70ebbb9584cdb'
 });
 
 const handleApiCall = (url, id, sessionData) => {
 	console.log('url in handleApiCall', url);
-	app.models
+	clarifai_app.models
 	.predict(Clarifai.FACE_DETECT_MODEL, url)
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
 		console.log('data in server:', data);
-		res.setHeader('Access-Control-Allow-Origin', '*').json(data);
+		res.json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
