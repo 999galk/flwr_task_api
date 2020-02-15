@@ -12,6 +12,7 @@ const handleApiCall = (url, id, sessionData) => {
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
+		console.log('data in server:', data);
 		res.json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
@@ -21,7 +22,7 @@ const changeEntries = (req,res,db) => {
 	console.log('input in changeEntries', input);
 	const sessionData = req.session;
 
-	db('entries').returning('id').insert({url : input}).then(id => {
+	db('entries').insert({url : input}).returning('id').then(id => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
