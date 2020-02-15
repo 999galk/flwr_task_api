@@ -42,7 +42,7 @@ app.use(session({
 }));
 //app.use(cors());
 let allowCrossDomain = function(req, res, next) {
-  res..setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', "*");
   next();
 }
