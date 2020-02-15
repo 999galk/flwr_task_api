@@ -33,10 +33,11 @@ const store = new KnexSessionStore({
 
 const app = express();
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.set({'Access-Control-Allow-Origin' :'*', 'Access-Control-Allow-Headers':'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode'});
-  next();
-});
+app.use(cors());
+// app.use((req, res, next) => {
+//   res.set({'Access-Control-Allow-Origin' :'*', 'Access-Control-Allow-Headers':'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode'});
+//   next();
+// });
 app.use(session({
   store: store,
   secret: (process.env.FOO_COOKIE_SECRET || 'sdftyhjik') ,
@@ -44,7 +45,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
-//app.use(cors());
+
 
 
 
@@ -67,6 +68,7 @@ app.get('/', (req, res) => {
 
 //another way of calling the function from the external module - the req, res are called after the function is triggered anyways so we don't have to mention it here
 //we do need to add it in the module !! (db) => (req,res) => {actions}
+app.options('/image', cors());
 app.post('/image', (req,res) => {
 	image.changeEntries(req,res,db);
 });
