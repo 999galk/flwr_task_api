@@ -35,7 +35,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", 'http://localhost:3000');
-  //res.set("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode');
+  res.set("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode');
   next();
 });
 app.use(session({
