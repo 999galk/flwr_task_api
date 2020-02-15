@@ -12,7 +12,7 @@ const handleApiCall = (url, id, sessionData) => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
 		console.log('data in server:', data);
-		res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000/').json(data);
+		res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000').json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
