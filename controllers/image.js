@@ -6,14 +6,13 @@ const app = new Clarifai.App({
 
 const handleApiCall = (url, id, sessionData) => {
 	console.log('url in handleApiCall', url);
-	res.setHeader('Access-Control-Allow-Origin', '*');
 	app.models
 	.predict(Clarifai.FACE_DETECT_MODEL, url)
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
 		console.log('data in server:', data);
-		res.json(data);
+		res.setHeader('Access-Control-Allow-Origin', '*').json(data);
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
