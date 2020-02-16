@@ -16,12 +16,12 @@ const handleApiCall = (url, id, sessionData) => {
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
-const changeEntries = async function(req,res,db) => {
+const changeEntries = (req,res,db) => {
 	const { input } = req.body;
 	console.log('input in changeEntries', input);
 	const sessionData = req.session;
 
-	db('entries').insert({url : input}).returning('id').then(id => {
+	db('entries').insert({url : input}).returning('id').then(async function(id) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
