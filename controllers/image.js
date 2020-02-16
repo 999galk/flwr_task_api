@@ -11,7 +11,7 @@ const handleApiCall = (url, id, sessionData) => {
 	.then(data => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
-		console.log('data in server:', data);
+		console.log('data in handleApiCall:', data);
 		return data;
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
@@ -26,6 +26,7 @@ const changeEntries = (req,res,db) => {
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
     	const data = handleApiCall(input, id, sessionData);
+    	console.log('data back in changeEntries:', data);
     	res.json(data);
     }else{
     	res.status(404).json('user doesnt exist');
