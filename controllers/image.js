@@ -26,6 +26,7 @@ const changeEntries = async (req,res,db) => {
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
     	const data = await handleApiCall(input, id, sessionData);
+    	console.log('data back in changeEntries', data);
     	res.json(data);
     }else{
     	res.status(404).json('user doesnt exist');
