@@ -59,8 +59,9 @@ app.listen(process.env.PORT || 3001 , () =>{
 	console.log('server listen');
     db.select('sess').from('sessions').then(data => {
     	console.log('all data:', data);
-    	const firstRow=data[0].json;
+    	const firstRow=data[0];
     	console.log('first:',firstRow);
-
+    	const firstRowCo=data[0].sess.cookie;
+    	console.log('firstRowCookie:',firstRowCo);
     });
 })
