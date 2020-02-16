@@ -2,9 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const knex = require('knex');
-const register = require('./controllers/register');
-const signin = require('./controllers/signin');
-const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
@@ -20,7 +17,7 @@ const db = knex({
 
 const store = new KnexSessionStore({
     knex: db,
-    tablename: 'sessions' // optional. Defaults to 'sessions'
+    tablename: 'sessions'
 });
 
 const app = express();
@@ -39,27 +36,17 @@ app.get('/', (req, res) => {
 	res.json('Hey you!');
 })
 
-
 app.post('/image', (req,res) => {
 	image.changeEntries(req,res,db);
 });
-//app.post('/imageUrl', image.handleApiCall())
 
-// app.listen(3001 , () =>{
-// 	console.log('app is running on port ${process.env.PORT}');
-// })
 const handleUnclosedCalls = () => {
-	console.log('got to handleUnclosedCalls');
-
 	db.select('sess').from('sessions').then(data => {
     	data.forEach(se => {
-    		console.log('inside for each');
     		if(se.sess.status){
     			if((se.sess.status === 'saved_successfully') && se.sess.urlId){
-    				console.log('found incomplete call:', se.sess.status);
 					store.get(se.sess.sid, () => {
 						db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
-    						console.log('url of the session:', data[0].url);
     						request.post('https://blooming-scrubland-26588.herokuapp.com/image', {
 		                      json: {
 		                        "input" : data[0].url
@@ -69,10 +56,9 @@ const handleUnclosedCalls = () => {
 		                        console.error(error);
 		                        return
 		                      }
-		                      console.log('body back in callback:',body);
+		                      res.json(body);
 		                    })
     					});
-
 					})
     			}
     		}
