@@ -64,7 +64,7 @@ const handleUnclosedCalls = () => {
     				console.log('found incomplete call:', se.sess.status);
     				if(se.sess.urlId){
     					console.log('found urlID:', se.sess.urlId[0]);
-    					db.select('url').from('entries').where('id', '=', se.sess.urlId).then(data => {
+    					db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
     						console.log('url of the session:', data);
     						// request.post('/image', {
 		        //               json: {
