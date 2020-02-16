@@ -34,21 +34,6 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
-app.use(function(req, res, next) {
-    var session_id = (req.body && req.body.sid) || req.query && req.query.sid;
-    console.log('session id in middleware:', session_id);
-    req.store && req.store.get(session_id, function(err, session) {
-    	console.log('inside get from store');
-        if (session) {
-        	console.log('found session to reasign');
-            // createSession() re-assigns req.session
-            req.store.createSession(req, session)
-        }
-        return next()
-    })
-})
-
-
 app.get('/', (req, res) => {
 	console.log('session :', req.session);
 	res.json('Hey you!');
@@ -74,10 +59,10 @@ const handleUnclosedCalls = () => {
     				console.log('found incomplete call:', se.sess.status);
 					store.get(se.sess.sid, () => {
 						db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
-    						console.log('url of the session:', data);
+    						console.log('url of the session:', data[0].url);
     						request.post('https://blooming-scrubland-26588.herokuapp.com/image', {
 		                      json: {
-		                        input : data[0].url
+		                        "input" : data[0].url
 		                      }
 		                    }, (error, res, body) => {
 		                      if (error) {
