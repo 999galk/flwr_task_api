@@ -25,7 +25,7 @@ const changeEntries = (req,res,db) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
-    	const getData = ((resolve,reject) => { resolve(handleApiCall(input, id, sessionData)); });
+    	const getData = new Promise((resolve,reject) => { resolve(handleApiCall(input, id, sessionData)); });
     	getData.then(data => {
     		console.log('data back in changeEntries:', data);
     		res.json(data)
