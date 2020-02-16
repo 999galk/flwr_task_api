@@ -25,9 +25,11 @@ const changeEntries = (req,res,db) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
-    	const data = handleApiCall(input, id, sessionData);
-    	console.log('data back in changeEntries:', data);
-    	res.json(data);
+    	const getData = ((resolve,reject) => { resolve(handleApiCall(input, id, sessionData)); });
+    	getData.then(data => {
+    		console.log('data back in changeEntries:', data);
+    		res.json(data)
+    	});
     }else{
     	res.status(404).json('user doesnt exist');
     }
