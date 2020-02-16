@@ -32,7 +32,7 @@ const changeEntries = (req,res,db) => {
 			.predict(Clarifai.FACE_DETECT_MODEL, input)
 			.then(data => {
 				// sessionData.status = 'completed';
-				console.log('session status:', sessionData.status);
+				console.log('session status after complete :', sessionData.status);
 				console.log('data in handleApiCall:', data);
 				res.json(data);
 			}).catch(err => res.status(400).json('Error getting clarifai')))
