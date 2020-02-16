@@ -9,15 +9,6 @@ const image = require('./controllers/image');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host : '127.0.0.1',
-//     user : 'postgres',
-//     password : '1234',
-//     database : 'smartbrain'
-//   }
-// });
 const db = knex({
   client: 'pg',
   connection: {
@@ -34,10 +25,6 @@ const store = new KnexSessionStore({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-// app.use((req, res, next) => {
-//   res.set({'Access-Control-Allow-Origin' :'*', 'Access-Control-Allow-Headers':'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode'});
-//   next();
-// });
 app.use(session({
   store: store,
   secret: (process.env.FOO_COOKIE_SECRET || 'sdftyhjik') ,
@@ -70,5 +57,10 @@ app.post('/image', (req,res) => {
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
 	console.log('server listen');
-    db.select('sess').from('sessions').then(data => console.log);
+    db.select('sess').from('sessions').then(data => {
+    	console.log('all data:', data);
+    	const firstRow=data[0].json;
+    	console.log('first:',firstRow);
+
+    });
 })
