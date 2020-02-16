@@ -55,7 +55,7 @@ app.post('/image', (req,res) => {
 // })
 const handleUnclosedCalls = () => {
 	console.log('got to handleUnclosedCalls');
-	
+
 	db.select('sess').from('sessions').then(data => {
     	data.forEach(se => {
     		console.log('inside for each');
@@ -63,7 +63,21 @@ const handleUnclosedCalls = () => {
     			if(se.sess.status === 'saved_successfully'){
     				console.log('found incomplete call:', se.sess.status);
     				if(se.sess.urlId){
-    					db.select('url').from('entries').where('id', '=', se.sess.urlId).then(data => console.log('url of the session:', data));
+    					db.select('url').from('entries').where('id', '=', se.sess.urlId).then(data => {
+    						console.log('url of the session:', data);
+    						// request.post('/image', {
+		        //               json: {
+		        //                 "input" : data[0]
+		        //               }
+		        //             }, (error, res, body) => {
+		        //               if (error) {
+		        //                 console.error(error);
+		        //                 return
+		        //               }
+		        //               console.log('body back in callback:',body);
+		        //             })
+    					});
+    					
     				}
     			}
     		}
