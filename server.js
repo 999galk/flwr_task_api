@@ -56,14 +56,19 @@ const handleUnclosedCalls = () => {
 		                        console.error(error);
 		                        return
 		                      }
-		                      res.json(body);
+		                      sendResponse(body);
 		                    })
     					});
 					})
+
     			}
     		}
     	})
+
     })
+    function sendResponse(clarifqiData){
+    	res.json(clarifqiData);
+    }
 }
 
 app.listen(process.env.PORT || 3001 , () =>{
