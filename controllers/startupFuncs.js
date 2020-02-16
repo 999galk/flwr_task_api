@@ -1,4 +1,4 @@
-const handleUnclosedCalls = (db) => {
+const handleUnclosedCalls = (db, store) => {
 	db.select('sess').from('sessions').then(data => {
     	data.forEach(se => {
     		if(se.sess.status){

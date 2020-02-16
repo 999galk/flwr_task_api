@@ -43,5 +43,5 @@ app.post('/image', (req,res) => {
 
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
-	startupFuncs.handleUnclosedCalls(db);
+	startupFuncs.handleUnclosedCalls(db,store);
 })
