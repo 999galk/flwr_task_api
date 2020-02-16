@@ -34,7 +34,7 @@ const changeEntries = (req,res,db) => {
 				console.log('session status:', sessionData.status);
 				console.log('data in handleApiCall:', data);
 				res.json(data);
-			}).catch(err => res.status(400).json('Error getting clarifai'));)
+			}).catch(err => res.status(400).json('Error getting clarifai')))
     }else{
     	res.status(404).json('user doesnt exist');
     }
