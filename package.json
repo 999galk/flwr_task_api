@@ -25,7 +25,8 @@
     "express-session": "^1.17.0",
     "knex": "^0.20.4",
     "nodemon": "^2.0.2",
-    "pg": "^7.17.0"
+    "pg": "^7.17.0",
+    "request": "^2.88.2"
   },
   "homepage": "https://github.com/999galk/flwr_task_api#readme"
 }

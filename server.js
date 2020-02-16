@@ -8,6 +8,7 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
+const request = require('request');
 
 const db = knex({
   client: 'pg',
@@ -33,10 +34,19 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
-app.on('listening', function () {
-	console.log('server listening ');
-    console.log(db.getCollection('sessions').find({"status":"saved_successfully"}));
-});
+app.use(function(req, res, next) {
+    var session_id = (req.body && req.body.sid) || req.query && req.query.sid;
+    console.log('session id in middleware:', session_id);
+    req.store && req.store.get(session_id, function(err, session) {
+    	console.log('inside get from store');
+        if (session) {
+        	console.log('found session to reasign');
+            // createSession() re-assigns req.session
+            req.store.createSession(req, session)
+        }
+        return next()
+    })
+})
 
 
 app.get('/', (req, res) => {
@@ -66,17 +76,17 @@ const handleUnclosedCalls = () => {
     					console.log('found urlID:', se.sess.urlId[0]);
     					db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
     						console.log('url of the session:', data);
-    						// request.post('/image', {
-		        //               json: {
-		        //                 "input" : data[0]
-		        //               }
-		        //             }, (error, res, body) => {
-		        //               if (error) {
-		        //                 console.error(error);
-		        //                 return
-		        //               }
-		        //               console.log('body back in callback:',body);
-		        //             })
+    						request.post('/image', {
+		                      json: {
+		                        "input" : data[0].url;
+		                      }
+		                    }, (error, res, body) => {
+		                      if (error) {
+		                        console.error(error);
+		                        return
+		                      }
+		                      console.log('body back in callback:',body);
+		                    })
     					});
     					
     				}
