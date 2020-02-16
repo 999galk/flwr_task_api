@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const knex = require('knex');
 const image = require('./controllers/image');
+const startupFuncs = require('./controllers/startupFuncs');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const request = require('request');
@@ -40,35 +41,7 @@ app.post('/image', (req,res) => {
 	image.changeEntries(req,res,db);
 });
 
-const handleUnclosedCalls = () => {
-	db.select('sess').from('sessions').then(data => {
-    	data.forEach(se => {
-    		if(se.sess.status){
-    			if((se.sess.status === 'saved_successfully') && se.sess.urlId){
-					store.get(se.sess.sid, () => {
-						db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
-    						request.post('https://blooming-scrubland-26588.herokuapp.com/image', {
-		                      json: {
-		                        "input" : data[0].url
-		                      }
-		                    }, (error, res, body) => {
-		                      if (error) {
-		                        console.error(error);
-		                        return
-		                      }
-		                      console.log('clarifai resonse for session after startup:', body);
-		                    })
-    					});
-					})
-
-    			}
-    		}
-    	})
-
-    })
-}
-
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
-	handleUnclosedCalls();
+	startupFuncs.handleUnclosedCalls(db);
 })
