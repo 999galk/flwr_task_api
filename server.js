@@ -70,13 +70,12 @@ const handleUnclosedCalls = () => {
     	data.forEach(se => {
     		console.log('inside for each');
     		if(se.sess.status){
-    			if(se.sess.status === 'saved_successfully'){
+    			if((se.sess.status === 'saved_successfully') && se.sess.urlId){
     				console.log('found incomplete call:', se.sess.status);
-    				if(se.sess.urlId){
-    					console.log('found urlID:', se.sess.urlId[0]);
-    					db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
+					store.get(se.sess.sid, () => {
+						db.select('url').from('entries').where('id', '=', se.sess.urlId[0]).then(data => {
     						console.log('url of the session:', data);
-    						request.post('/image', {
+    						request.post('https://blooming-scrubland-26588.herokuapp.com/image', {
 		                      json: {
 		                        input : data[0].url
 		                      }
@@ -88,18 +87,12 @@ const handleUnclosedCalls = () => {
 		                      console.log('body back in callback:',body);
 		                    })
     					});
-    					
-    				}
+
+					})
     			}
     		}
     	})
-    // 	// console.log('all data:', data);
-    // 	// const firstRow=data[0];
-    // 	// console.log('first:',firstRow);
-    // 	// const status=data[0].sess.status;
-    // 	// console.log('firstRowCookie:',firstRowCo);
-    });
-}
+    }
 
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
