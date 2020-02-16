@@ -46,7 +46,9 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
-
+app.on('listening', function () {
+    console.log(db.getCollection('sessions').find({"status":"saved_successfully"}));
+});
 
 
 app.get('/', (req, res) => {
