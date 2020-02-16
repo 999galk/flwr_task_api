@@ -57,19 +57,19 @@ app.post('/image', (req,res) => {
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
 	console.log('server listen');
-    db.select('sess').from('sessions').then(data => {
-    	data.forEach(se => {
-    		console.log('inside for each');
-    		if(se.sess.status){
-    			if(se.sess.status === 'saved_successfully'){
-    				console.log('found incomplete call:', se.sess.status);
-    			}
-    		}
-    	})
-    	// console.log('all data:', data);
-    	// const firstRow=data[0];
-    	// console.log('first:',firstRow);
-    	// const status=data[0].sess.status;
-    	// console.log('firstRowCookie:',firstRowCo);
-    });
+    // db.select('sess').from('sessions').then(data => {
+    // 	data.forEach(se => {
+    // 		console.log('inside for each');
+    // 		if(se.sess.status){
+    // 			if(se.sess.status === 'saved_successfully'){
+    // 				console.log('found incomplete call:', se.sess.status);
+    // 			}
+    // 		}
+    // 	})
+    // 	// console.log('all data:', data);
+    // 	// const firstRow=data[0];
+    // 	// console.log('first:',firstRow);
+    // 	// const status=data[0].sess.status;
+    // 	// console.log('firstRowCookie:',firstRowCo);
+    // });
 })
