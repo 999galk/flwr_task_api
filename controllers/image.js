@@ -21,7 +21,7 @@ const changeEntries = (req,res,db) => {
 	console.log('input in changeEntries', input);
 	const sessionData = req.session;
 
-	db('entries').insert({url : input}).returning('id').then(async function(id) => {
+	db('entries').insert({url : input}).returning('id').then(async function(id){
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
