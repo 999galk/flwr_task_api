@@ -78,7 +78,7 @@ const handleUnclosedCalls = () => {
     						console.log('url of the session:', data);
     						request.post('/image', {
 		                      json: {
-		                        "input" : data[0].url;
+		                        input : data[0].url
 		                      }
 		                    }, (error, res, body) => {
 		                      if (error) {
