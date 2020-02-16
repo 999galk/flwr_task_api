@@ -74,5 +74,5 @@ app.listen(process.env.PORT || 3001 , () =>{
     // 	// console.log('first:',firstRow);
     // 	// const status=data[0].sess.status;
     // 	// console.log('firstRowCookie:',firstRowCo);
-    // });
+    });
 })
