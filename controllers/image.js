@@ -28,7 +28,7 @@ const changeEntries = (req,res,db) => {
     	console.log('session status:', sessionData.status);
     	let data = await (
     		clarifai_app.models
-			.predict(Clarifai.FACE_DETECT_MODEL, url)
+			.predict(Clarifai.FACE_DETECT_MODEL, input)
 			.then(data => {
 				sessionData.status = 'completed';
 				console.log('session status:', sessionData.status);
