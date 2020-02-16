@@ -25,7 +25,7 @@ const changeEntries = async (req,res,db) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
-    	const data = await handleApiCall(input, id, sessionData);
+    	let data = await handleApiCall(input, id, sessionData);
     	console.log('data back in changeEntries', data);
     	res.json(data);
     }else{
