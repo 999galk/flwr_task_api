@@ -47,6 +47,7 @@ app.use(session({
 }));
 
 app.on('listening', function () {
+	console.log('server listening ');
     console.log(db.getCollection('sessions').find({"status":"saved_successfully"}));
 });
 
@@ -68,4 +69,6 @@ app.post('/image', (req,res) => {
 
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
+	console.log('server listen');
+    db.getCollection('sessions').find({"status":"saved_successfully"}).then(data => console.log());
 })
