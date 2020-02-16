@@ -16,7 +16,7 @@ const handleApiCall = (url, id, sessionData) => {
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
-const changeEntries = async (req,res,db) => {
+const changeEntries = async function(req,res,db) => {
 	const { input } = req.body;
 	console.log('input in changeEntries', input);
 	const sessionData = req.session;
