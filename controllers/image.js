@@ -12,7 +12,7 @@ const handleApiCall = (url, id, sessionData) => {
 		sessionData.status = 'completed';
 		console.log('session status:', sessionData.status);
 		console.log('data in server:', data);
-		res.set({'Access-Control-Allow-Origin' :'*', 'Access-Control-Allow-Headers':'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,mode'}).json(data);
+		return data;
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
@@ -25,7 +25,8 @@ const changeEntries = (req,res,db) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
-    	handleApiCall(input, id, sessionData);
+    	const data = handleApiCall(input, id, sessionData);
+    	res.json(data);
     }else{
     	res.status(404).json('user doesnt exist');
     }
