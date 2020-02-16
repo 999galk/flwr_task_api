@@ -70,5 +70,5 @@ app.post('/image', (req,res) => {
 app.listen(process.env.PORT || 3001 , () =>{
 	console.log(`app is running on port ${process.env.PORT}`);
 	console.log('server listen');
-    db.select('sess').from('books').then(data => console.log);
+    db.select('sess').from('sessions').then(data => console.log);
 })
