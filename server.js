@@ -53,11 +53,10 @@ app.post('/image', (req,res) => {
 // app.listen(3001 , () =>{
 // 	console.log('app is running on port ${process.env.PORT}');
 // })
-
-app.listen(process.env.PORT || 3001 , () =>{
-	console.log(`app is running on port ${process.env.PORT}`);
-	console.log('server listen');
-    db.select('sess').from('sessions').then(data => {
+const handleUnclosedCalls = () => {
+	console.log('got to handleUnclosedCalls');
+	
+	db.select('sess').from('sessions').then(data => {
     	data.forEach(se => {
     		console.log('inside for each');
     		if(se.sess.status){
@@ -75,4 +74,9 @@ app.listen(process.env.PORT || 3001 , () =>{
     // 	// const status=data[0].sess.status;
     // 	// console.log('firstRowCookie:',firstRowCo);
     });
+}
+
+app.listen(process.env.PORT || 3001 , () =>{
+	console.log(`app is running on port ${process.env.PORT}`);
+	handleUnclosedCalls();
 })
