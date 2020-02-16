@@ -56,7 +56,7 @@ const handleUnclosedCalls = () => {
 		                        console.error(error);
 		                        return
 		                      }
-		                      sendResponse(body);
+		                      console.log('clarifai resonse for session after startup:', body);
 		                    })
     					});
 					})
@@ -66,9 +66,6 @@ const handleUnclosedCalls = () => {
     	})
 
     })
-    function sendResponse(clarifqiData){
-    	res.json(clarifqiData);
-    }
 }
 
 app.listen(process.env.PORT || 3001 , () =>{
