@@ -16,7 +16,7 @@ const handleApiCall = (url, id, sessionData) => {
 	}).catch(err => res.status(400).json('Error getting clarifai'));
 }
 
-const changeEntries = (req,res,db) => {
+const changeEntries = async (req,res,db) => {
 	const { input } = req.body;
 	console.log('input in changeEntries', input);
 	const sessionData = req.session;
@@ -25,11 +25,8 @@ const changeEntries = (req,res,db) => {
     if(id.length){
     	sessionData.status = 'saved_successfully';
     	console.log('session status:', sessionData.status);
-    	const getData = new Promise((resolve,reject) => { resolve(handleApiCall(input, id, sessionData)); });
-    	getData.then(data => {
-    		console.log('data back in changeEntries:', data);
-    		res.json(data)
-    	});
+    	const data = await handleApiCall(input, id, sessionData);
+    	res.json(data);
     }else{
     	res.status(404).json('user doesnt exist');
     }
